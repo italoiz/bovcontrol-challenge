@@ -1,2 +1,1 @@
-import * as checklist from './checklist';
-export default { checklist };
+export * from './checklist';

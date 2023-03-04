@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import styled from 'styled-components/native';
 
-import { Box } from '@/components';
+import { Box, NetworkActivityAlert } from '@/components';
 import { useFontResources } from '@/hooks';
 import { MainNavigation } from '@/navigation';
 import { ThemeProvider } from '@/themes';
@@ -20,6 +20,7 @@ export const App = () => {
         <MainContainer>
           <MainNavigation />
         </MainContainer>
+        <NetworkActivityAlert />
       </ThemeProvider>
     </NavigationContainer>
   );

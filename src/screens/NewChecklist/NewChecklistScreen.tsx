@@ -2,14 +2,7 @@ import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import React from 'react';
 import styled from 'styled-components/native';
 
-import {
-  Box,
-  Button,
-  Header,
-  PageWrapper,
-  RadioButton,
-  TextField,
-} from '@/components';
+import { Box, Button, PageWrapper, RadioButton, TextField } from '@/components';
 
 import { PageHeader } from './PageHeader';
 import * as S from './styles';
@@ -23,7 +16,6 @@ const Container = styled.ScrollView`
 export const NewChecklistScreen = () => {
   return (
     <Container showsVerticalScrollIndicator={false}>
-      <Header />
       <PageWrapper>
         <PageHeader />
         <S.SectionTitle>Dados do fazendeiro</S.SectionTitle>

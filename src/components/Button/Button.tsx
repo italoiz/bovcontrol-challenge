@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components/native';
 
 import { Box } from '../Box';
-import { Text, TextColor, TextProps } from '../Text';
+import { Text, TextProps } from '../Text';
 
 type ButtonVariant = 'standard' | 'text';
 
@@ -15,6 +15,7 @@ type ButtonProps = {
   color?: ButtonColor;
   leftElement?: (args: { color: string; size: number }) => React.ReactNode;
   size?: ButtonSize;
+  onPress?: () => Promise<void> | void;
 };
 
 const Touchable = styled.TouchableOpacity.attrs({
@@ -54,14 +55,14 @@ export const getTextStyle = (
     secondary: 'white',
   };
   return {
-    color: textColor[props.color || 'primary'] as TextColor,
+    color: textColor[props.color || 'primary'],
   };
 };
 
 export const Button = (props: ButtonProps) => {
   const textProps = getTextStyle(props);
   return (
-    <Touchable>
+    <Touchable onPress={props.onPress}>
       <ButtonContainer {...props}>
         {props.leftElement?.({ color: textProps.color, size: 18 })}
         {typeof props.leftElement === 'function' && <Box width={4} />}

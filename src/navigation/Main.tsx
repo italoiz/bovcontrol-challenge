@@ -1,5 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import { Header } from '@/components';
 import * as Screens from '@/screens';
 
 const Stack = createNativeStackNavigator();
@@ -7,8 +8,9 @@ const Stack = createNativeStackNavigator();
 export const MainNavigation = () => (
   <Stack.Navigator
     screenOptions={{
-      headerShown: false,
       contentStyle: { backgroundColor: '#fff' },
+      presentation: 'card',
+      header: ({ back }) => <Header displayBackArrow={!!back} />,
     }}
   >
     <Stack.Screen name="Home" component={Screens.HomeScreen} />

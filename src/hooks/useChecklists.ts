@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 
-import { api } from '@/services';
+import { Checklist, fetchChecklists } from '@/services';
 
 export const useChecklists = () => {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState<Checklist[]>([]);
   useEffect(() => {
-    api.checklist.fetchChecklists().then(data => setItems(data));
+    fetchChecklists().then(data => setItems(data));
   }, []);
   return { checklists: items };
 };

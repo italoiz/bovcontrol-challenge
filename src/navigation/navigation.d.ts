@@ -1,11 +1,11 @@
-export type RootStackParamList = {
+type RootStackParamList = {
   Home: undefined;
-  ChecklistDetail: undefined;
+  ChecklistDetail: { checklistId: string };
   NewChecklist: undefined;
 };
 
 declare global {
   namespace ReactNavigation {
-    type RootParamList = RootStackParamList;
+    interface RootParamList extends RootStackParamList {} // eslint-disable-line
   }
 }

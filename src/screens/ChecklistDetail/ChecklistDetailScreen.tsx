@@ -1,7 +1,10 @@
+import { RouteProp, useRoute } from '@react-navigation/native';
+import { format } from 'date-fns';
 import React from 'react';
 import styled from 'styled-components/native';
 
-import { Box, Header, PageWrapper } from '@/components';
+import { Box, PageWrapper } from '@/components';
+import { useChecklistDetail } from '@/hooks';
 
 import { CellField } from './CellField';
 import { PageHeader } from './PageHeader';
@@ -14,58 +17,93 @@ const Container = styled.ScrollView`
 `;
 
 export const ChecklistDetailScreen = () => {
+  const route = useRoute<RouteProp<RootStackParamList, 'ChecklistDetail'>>();
+  const { checklist, loading } = useChecklistDetail(route.params.checklistId);
+  const {
+    farmer,
+    to,
+    from,
+    amount_of_milk_produced,
+    number_of_cows_head,
+    type,
+    had_supervision,
+    created_at,
+    updated_at,
+  } = checklist || {};
+  const { name: farm_name, city: farm_city } = farmer || {};
+  const { name: farmer_name } = to || {};
+  const { name: supervisor_name } = from || {};
   return (
     <Container showsVerticalScrollIndicator={false}>
-      <Header />
       <PageWrapper>
         <PageHeader />
         <S.SectionTitle>Dados do fazendeiro</S.SectionTitle>
 
-        <CellField label="Nome do Fazendeiro">Italo Andrade</CellField>
+        <CellField {...{ loading }} label="Nome do Fazendeiro">
+          {farmer_name}
+        </CellField>
 
         <Box height={32} />
         <S.SectionTitle>Dados da fazenda</S.SectionTitle>
 
         <Box row>
-          <CellField label="Nome da fazena" fillContainer>
-            Minha fazendinha
+          <CellField {...{ loading }} label="Nome da fazena" fillContainer>
+            {farm_name}
           </CellField>
           <Box width={12} />
-          <CellField label="Cidade" fillContainer>
-            São Paulo
+          <CellField {...{ loading }} label="Cidade" fillContainer>
+            {farm_city}
           </CellField>
         </Box>
         <Box height={12} />
-        <CellField label="Supervisor responsável" fillContainer>
-          Jonh Doe
+        <CellField
+          {...{ loading }}
+          label="Supervisor responsável"
+          fillContainer
+        >
+          {supervisor_name}
         </CellField>
         <Box height={12} />
-        <CellField label="Tipo de checklist" fillContainer>
-          Antibiótico
+        <CellField {...{ loading }} label="Tipo de checklist" fillContainer>
+          {type}
         </CellField>
         <Box height={12} />
         <Box row>
-          <CellField label="Leite produzido" fillContainer>
-            400 L
+          <CellField {...{ loading }} label="Leite produzido" fillContainer>
+            {amount_of_milk_produced} L
           </CellField>
           <Box width={12} />
-          <CellField label="Cabeças de Gado" fillContainer>
-            1200
+          <CellField {...{ loading }} label="Cabeças de Gado" fillContainer>
+            {number_of_cows_head}
           </CellField>
         </Box>
         <Box height={12} />
-        <CellField label="Houve supervisão no mês atual?" fillContainer>
-          Sim
+        <CellField
+          {...{ loading }}
+          label="Houve supervisão no mês atual?"
+          fillContainer
+        >
+          {had_supervision ? 'Sim' : 'Não'}
         </CellField>
         <Box height={12} />
         <Box row>
-          <CellField label="Data de criação" fillContainer>
-            03/03/2023
-          </CellField>
-          <Box width={12} />
-          <CellField label="Ultima atualização" fillContainer>
-            04/03/2023
-          </CellField>
+          {!!created_at && (
+            <CellField {...{ loading }} label="Data de criação" fillContainer>
+              {format(created_at, 'dd/MM/yyyy')}
+            </CellField>
+          )}
+          {!!updated_at && (
+            <React.Fragment>
+              <Box width={12} />
+              <CellField
+                {...{ loading }}
+                label="Ultima atualização"
+                fillContainer
+              >
+                {format(updated_at, 'dd/MM/yyyy')}
+              </CellField>
+            </React.Fragment>
+          )}
         </Box>
       </PageWrapper>
     </Container>
