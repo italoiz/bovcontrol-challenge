@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "bovcontrol-milk-hiring",
+    "slug": "bovcontrol-milk-hiring",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
