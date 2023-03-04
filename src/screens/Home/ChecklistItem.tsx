@@ -1,7 +1,15 @@
+import { format } from 'date-fns';
 import React from 'react';
 import styled from 'styled-components/native';
 
 import { Box, Text } from '@/components';
+
+type ChecklistItemProps = {
+  farmer_name: string;
+  farm_name: string;
+  farm_city: string;
+  created_at: Date;
+};
 
 const Container = styled(Box).attrs({ row: true })`
   padding: 12px;
@@ -9,15 +17,20 @@ const Container = styled(Box).attrs({ row: true })`
   border-radius: 4px;
 `;
 
-export const ChecklistItem = () => {
+export const ChecklistItem = ({
+  farm_city,
+  farmer_name,
+  farm_name,
+  created_at,
+}: ChecklistItemProps) => {
   return (
     <Container>
       <Box flex={1}>
         <Text color="primary" bold>
-          Italo Andrade
+          {farmer_name}
         </Text>
         <Text color="primary" variant="small">
-          Minha fazendinha - São Paulo
+          {farm_name} - {farm_city}
         </Text>
       </Box>
       <Box>
@@ -25,7 +38,7 @@ export const ChecklistItem = () => {
           criado em
         </Text>
         <Text variant="small" color="grey" textAlign="center" bold>
-          03/03/2022
+          {format(created_at, 'dd/MM/yyyy')}
         </Text>
       </Box>
     </Container>

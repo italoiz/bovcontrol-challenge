@@ -41,6 +41,7 @@ module.exports = {
     ],
     'react-native/no-color-literals': 'off',
     'react-native/no-raw-text': 'off',
+    'react-native/no-inline-styles': 'off',
     'react/jsx-props-no-spreading': 'off',
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
