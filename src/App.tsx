@@ -1,10 +1,10 @@
+import { NavigationContainer } from '@react-navigation/native';
 import styled from 'styled-components/native';
 
 import { Box } from '@/components';
-import { HomeScreen } from '@/screens';
+import { useFontResources } from '@/hooks';
+import { MainNavigation } from '@/navigation';
 import { ThemeProvider } from '@/themes';
-
-import useFontResources from './hooks/useFontResources';
 
 const MainContainer = styled(Box)`
   flex: 1;
@@ -15,10 +15,12 @@ export const App = () => {
   const isFontsLoaded = useFontResources();
   if (!isFontsLoaded) return null;
   return (
-    <ThemeProvider>
-      <MainContainer>
-        <HomeScreen />
-      </MainContainer>
-    </ThemeProvider>
+    <NavigationContainer>
+      <ThemeProvider>
+        <MainContainer>
+          <MainNavigation />
+        </MainContainer>
+      </ThemeProvider>
+    </NavigationContainer>
   );
 };
