@@ -10,6 +10,7 @@ export const Label = styled(Text).attrs({
 })`
   margin-bottom: 4px;
   font-weight: 600;
+  font-family: 'OpenSans-600SemiBold';
 `;
 
 export const OptionTouchable = styled.TouchableOpacity.attrs({

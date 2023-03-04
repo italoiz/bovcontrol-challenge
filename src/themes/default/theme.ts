@@ -28,5 +28,6 @@ export default {
       font-size: ${typography[typo].fontSize}px;
       line-height: ${typography[typo].lineHeight}px;
       font-weight: ${typography[typo].fontWeight};
+      font-family: ${typography[typo].fontFamily};
     `,
 };

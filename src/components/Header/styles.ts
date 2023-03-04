@@ -8,6 +8,7 @@ export const LogoText = styled(Text)`
   font-size: 20px;
   line-height: 27px;
   font-weight: 600;
+  font-family: 'OpenSans-600SemiBold';
 `;
 
 export const AvatarImage = styled.Image.attrs({

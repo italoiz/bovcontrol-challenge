@@ -24,6 +24,7 @@ const SCText = styled.Text<TextProps>`
     props.bold &&
     css`
       font-weight: 700;
+      font-family: 'OpenSans-700Bold';
     `}
 `;
 
