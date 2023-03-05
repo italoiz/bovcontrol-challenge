@@ -22,6 +22,7 @@ module.exports = {
       'error',
       { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
     ],
+    '@typescript-eslint/no-empty-interface': 'off',
     'import/no-extraneous-dependencies': [
       'error',
       {

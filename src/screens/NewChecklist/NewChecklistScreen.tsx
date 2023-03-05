@@ -1,85 +1,56 @@
-import Icon from '@expo/vector-icons/MaterialCommunityIcons';
-import React from 'react';
+import { useNavigation } from '@react-navigation/native';
+import React, { useCallback } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 import styled from 'styled-components/native';
 
-import { Box, Button, PageWrapper, RadioButton, TextField } from '@/components';
+import { Box, PageWrapper } from '@/components';
+import { createNewChecklist } from '@/services';
 
+import { FarmDataForm } from './FarmDataForm';
+import { FarmerDataForm } from './FarmerDataForm';
 import { PageHeader } from './PageHeader';
+import { SaveButton } from './SaveButton';
 import * as S from './styles';
 
-// Estilos globais
 const Container = styled.ScrollView`
   flex: 1;
   background-color: #ffffff;
 `;
 
 export const NewChecklistScreen = () => {
+  const navigation = useNavigation();
+
+  const form = useForm({
+    defaultValues: { had_supervision: 'yes', type: 'bpa' },
+  });
+
+  const submitHandler = useCallback(async formData => {
+    await createNewChecklist({
+      ...formData,
+      had_supervision: formData.had_supervision === 'yes',
+    });
+    navigation.navigate('Home');
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
-    <Container showsVerticalScrollIndicator={false}>
-      <PageWrapper>
-        <PageHeader />
-        <S.SectionTitle>Dados do fazendeiro</S.SectionTitle>
+    <FormProvider {...form}>
+      <Container showsVerticalScrollIndicator={false}>
+        <PageWrapper>
+          <PageHeader />
 
-        <TextField label="Nome do fazendeiro" placeholder="Nome completo" />
+          <S.SectionTitle>Dados do fazendeiro</S.SectionTitle>
+          <FarmerDataForm />
 
-        <Box marginTop={32} />
-        <S.SectionTitle>Dados da fazenda</S.SectionTitle>
+          <Box marginTop={32} />
 
-        <Box row>
-          <TextField
-            label="Nome da fazenda"
-            placeholder="Minha fazendinha"
-            fillContainer
-          />
-          <Box width={12} />
-          <TextField label="Cidade" placeholder="São Paulo" fillContainer />
-        </Box>
-        <Box height={12} />
-        <TextField
-          label="Nome do supervisor"
-          placeholder="Digite o nome do supervisor da fazenda"
-        />
-        <Box height={12} />
-        <RadioButton
-          label="Tipo de checklist"
-          options={[
-            { label: 'BPA', value: 'bpa' },
-            { label: 'Antibiótico', value: 'antibiotico' },
-            { label: 'BPF', value: 'bpf' },
-          ]}
-        />
-        <Box height={12} />
-        <Box row>
-          <TextField
-            label="Leite produzido"
-            placeholder="Total em litros"
-            fillContainer
-          />
-          <Box width={12} />
-          <TextField
-            label="Cabeças de Gado atual"
-            placeholder="1200"
-            fillContainer
-          />
-        </Box>
-        <Box height={12} />
-        <RadioButton
-          label="Houve supervisão no mês atual?"
-          options={[
-            { label: 'Sim', value: 'yes' },
-            { label: 'Não', value: 'no' },
-          ]}
-        />
-        <Box height={32} />
-        <Button
-          title="Salvar Checklist"
-          color="secondary"
-          size="large"
-          leftElement={({ color, size }) => (
-            <Icon name="content-save" {...{ color, size }} />
-          )}
-        />
-      </PageWrapper>
-    </Container>
+          <S.SectionTitle>Dados da fazenda</S.SectionTitle>
+          <FarmDataForm />
+
+          <Box height={32} />
+
+          <SaveButton onSave={form.handleSubmit(submitHandler)} />
+        </PageWrapper>
+      </Container>
+    </FormProvider>
   );
 };

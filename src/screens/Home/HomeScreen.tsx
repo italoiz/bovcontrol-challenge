@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, ListRenderItem } from 'react-native';
+import { FlatList, ListRenderItem, RefreshControl } from 'react-native';
 
 import { Box, PageWrapper } from '@/components';
 import { useChecklists } from '@/hooks';
@@ -20,7 +20,7 @@ const renderChecklistItem: ListRenderItem<Checklist> = ({
 );
 
 export const HomeScreen = () => {
-  const { checklists } = useChecklists();
+  const { checklists, loading, refresh } = useChecklists();
   return (
     <PageWrapper removeVertical>
       <FlatList
@@ -30,6 +30,9 @@ export const HomeScreen = () => {
         ListHeaderComponent={<HomeHeader />}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingVertical: 24 }}
+        refreshControl={
+          <RefreshControl refreshing={loading} onRefresh={refresh} />
+        }
       />
     </PageWrapper>
   );

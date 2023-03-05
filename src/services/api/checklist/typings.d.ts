@@ -39,3 +39,14 @@ export type Checklist = {
   created_at: Date;
   updated_at: Date;
 };
+
+export type NewChecklistRequestData = {
+  farmer_name: string;
+  farm_city: string;
+  farm_name: string;
+  supervisor_name: string;
+  type: string;
+  milk_produced: string;
+  cows_head: string;
+  had_supervision: boolean;
+};

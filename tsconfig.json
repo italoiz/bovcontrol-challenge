@@ -2,8 +2,7 @@
   "compilerOptions": {
     "paths": {
       "@/*": ["./src/*"]
-    },
-    "types": ["./src/navigation/navigation"]
+    }
   },
   "extends": "expo/tsconfig.base"
 }
