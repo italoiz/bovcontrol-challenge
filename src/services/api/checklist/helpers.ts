@@ -10,7 +10,7 @@ import {
 
 export const parseChecklist = (checklist: ChecklistAPIResponse): Checklist => {
   return {
-    _id: checklist.id,
+    _id: checklist._id || checklist.id,
     cows_head: Number(checklist.number_of_cows_head),
     created_at: parseISO(checklist.created_at),
     farm_city: checklist.farmer.city,
