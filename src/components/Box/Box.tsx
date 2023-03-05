@@ -8,7 +8,7 @@ export type BoxProps = Partial<ViewStyle> & {
 };
 
 export const Box = styled.View<BoxProps>`
-  flex-direction: ${({ row }) => row && 'row'};
+  flex-direction: ${({ row }) => (row === true ? 'row' : 'column')};
   ${props => getLayoutProps(props)}
   ${props => getSpacingProps(props)}
 `;
