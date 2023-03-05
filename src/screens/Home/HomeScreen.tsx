@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { FlatList, ListRenderItem, RefreshControl } from 'react-native';
 
 import { Box, PageWrapper } from '@/components';
+import { useSyncEffect } from '@/components/SyncActivityWarning';
 import { useChecklists } from '@/hooks';
 import { Checklist } from '@/services/api/checklist';
 
@@ -25,6 +26,11 @@ const renderChecklistItem: ListRenderItem<Checklist> = ({
 
 export const HomeScreen = () => {
   const { checklists, loading, refresh } = useChecklists();
+  useSyncEffect(
+    useCallback(() => {
+      refresh();
+    }, []), // eslint-disable-line
+  );
   return (
     <PageWrapper removeVertical>
       <FlatList

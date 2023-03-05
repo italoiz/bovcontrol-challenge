@@ -11,6 +11,7 @@ import {
 import { fetchAllUnsyncedChecklist, syncRecordById } from '@/services/realm';
 
 import { Text } from '../Text';
+import events from './events';
 
 const Container = styled(Animated.View)`
   background-color: ${props => props.theme.colors.secondary.main};
@@ -41,10 +42,10 @@ export const SyncActivityWarning = () => {
       const hasNetwork = netInfo.isConnected;
 
       if (hasNetwork && !!checklist.length) {
+        events.emit('sync_started');
         showWarning();
 
         for (const item of checklist) {
-          console.log({ item });
           const itemId = String(item._id);
           const onlineResource = await fetchChecklistById(itemId);
 
@@ -66,6 +67,7 @@ export const SyncActivityWarning = () => {
         }
 
         hideWarning();
+        events.emit('sync_completed');
       }
     }
 
