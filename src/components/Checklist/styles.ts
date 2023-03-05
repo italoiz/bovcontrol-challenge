@@ -1,5 +1,5 @@
 import { TouchableOpacity } from 'react-native';
-import styled, { css } from 'styled-components/native';
+import styled from 'styled-components/native';
 
 // Estilos globais
 export const Container = styled.View`
