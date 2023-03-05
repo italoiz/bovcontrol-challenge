@@ -6,7 +6,7 @@ export const FarmerDataForm = () => {
   return (
     <React.Fragment>
       <TextField
-        name="farmer_name"
+        name="farmer"
         label="Nome do fazendeiro"
         placeholder="Nome completo"
       />

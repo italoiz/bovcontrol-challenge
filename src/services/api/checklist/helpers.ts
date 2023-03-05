@@ -1,22 +1,30 @@
 import { parseISO } from 'date-fns';
 
+import { Checklist as LocalChecklist, getRealm } from '@/services/realm';
+
 import {
   Checklist,
   ChecklistAPIResponse,
-  NewChecklistRequestData,
+  ChecklistRequestData,
 } from './typings';
 
 export const parseChecklist = (checklist: ChecklistAPIResponse): Checklist => {
   return {
-    ...checklist,
+    _id: checklist._id,
+    cows_head: Number(checklist.number_of_cows_head),
     created_at: parseISO(checklist.created_at),
+    farm_city: checklist.farmer.city,
+    farm_name: checklist.farmer.name,
+    farmer: checklist.to.name,
+    had_supervision: checklist.had_supervision,
+    milk_produced: Number(checklist.amount_of_milk_produced),
+    supervisor: checklist.from.name,
+    type: checklist.type,
     updated_at: checklist.updated_at ? parseISO(checklist.updated_at) : null,
-    number_of_cows_head: Number(checklist.number_of_cows_head),
-    amount_of_milk_produced: Number(checklist.amount_of_milk_produced),
   };
 };
 
-export const parseChecklistRequestData = (data: NewChecklistRequestData) => {
+export const parseChecklistRequestData = (data: ChecklistRequestData) => {
   return {
     _id: new Date().getTime().toString(),
     type: data.type,
@@ -28,10 +36,10 @@ export const parseChecklistRequestData = (data: NewChecklistRequestData) => {
       city: data.farm_city,
     },
     from: {
-      name: data.supervisor_name,
+      name: data.supervisor,
     },
     to: {
-      name: data.farmer_name,
+      name: data.farmer,
     },
     created_at: new Date(),
     updated_at: new Date(),
@@ -40,4 +48,28 @@ export const parseChecklistRequestData = (data: NewChecklistRequestData) => {
       longitude: -46.6,
     },
   };
+};
+
+export const downloadToLocalDatabase = async (
+  data: ChecklistAPIResponse[],
+): Promise<void> => {
+  const realm = await getRealm();
+  const localItems = [
+    ...realm.objects<LocalChecklist>('Checklist').toJSON(),
+  ].map(item => String(item._id));
+  const dataToDownload = data.filter(
+    item => !localItems.includes(String(item._id)),
+  );
+  if (dataToDownload.length) {
+    realm.write(() => {
+      dataToDownload.forEach(itemData => {
+        const parsedData = {
+          ...parseChecklist(itemData),
+          _id: String(itemData._id),
+          synced: true,
+        };
+        realm.create('Checklist', parsedData);
+      });
+    });
+  }
 };

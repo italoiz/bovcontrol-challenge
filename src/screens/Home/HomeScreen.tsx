@@ -11,12 +11,16 @@ import { HomeHeader } from './HomeHeader';
 const renderChecklistItem: ListRenderItem<Checklist> = ({
   item: {
     _id: id,
-    farmer: { name: farm_name, city: farm_city },
-    to: { name: farmer_name },
+    farm_name,
+    farm_city,
+    farmer: farmer_name,
     created_at,
+    synced,
   },
 }) => (
-  <ChecklistItem {...{ id, farmer_name, farm_city, farm_name, created_at }} />
+  <ChecklistItem
+    {...{ id, farmer_name, farm_city, farm_name, created_at, synced }}
+  />
 );
 
 export const HomeScreen = () => {

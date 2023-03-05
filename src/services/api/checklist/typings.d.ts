@@ -28,23 +28,24 @@ export type ChecklistAPIResponse = {
 
 export type Checklist = {
   _id: number;
-  type: string;
-  amount_of_milk_produced: number;
-  farmer: Farmer;
-  from: Person;
-  to: Person;
-  number_of_cows_head: number;
-  had_supervision: boolean;
-  location: Location;
+  cows_head: number;
   created_at: Date;
-  updated_at: Date;
-};
-
-export type NewChecklistRequestData = {
-  farmer_name: string;
   farm_city: string;
   farm_name: string;
-  supervisor_name: string;
+  farmer: string;
+  had_supervision: boolean;
+  milk_produced: number;
+  supervisor: string;
+  type: string;
+  updated_at: Date;
+  synced?: boolean;
+};
+
+export type ChecklistRequestData = {
+  farmer: string;
+  farm_city: string;
+  farm_name: string;
+  supervisor: string;
   type: string;
   milk_produced: string;
   cows_head: string;

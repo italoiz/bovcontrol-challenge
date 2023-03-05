@@ -24,7 +24,7 @@ export const FarmDataForm = () => {
       <Box height={12} />
 
       <TextField
-        name="supervisor_name"
+        name="supervisor"
         label="Nome do supervisor"
         placeholder="Digite o nome do supervisor da fazenda"
       />
@@ -36,7 +36,7 @@ export const FarmDataForm = () => {
         label="Tipo de checklist"
         options={[
           { label: 'BPA', value: 'BPA' },
-          { label: 'Antibiótico', value: 'Antibiotic' },
+          { label: 'Antibiótico', value: 'ANTIBIOTIC' },
           { label: 'BPF', value: 'BPF' },
         ]}
       />
@@ -48,6 +48,7 @@ export const FarmDataForm = () => {
           name="milk_produced"
           label="Leite produzido"
           placeholder="Total em litros"
+          keyboardType="number-pad"
           fillContainer
         />
         <Box width={12} />
@@ -55,6 +56,7 @@ export const FarmDataForm = () => {
           name="cows_head"
           label="Cabeças de Gado atual"
           placeholder="1200"
+          keyboardType="number-pad"
           fillContainer
         />
       </Box>

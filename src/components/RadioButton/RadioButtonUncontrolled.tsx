@@ -19,11 +19,6 @@ export const RadioButtonUncontrolled = ({
 
   useEffect(() => {
     if (isFirstRender) return;
-    if (typeof onChange === 'function') onChange(internalValue);
-  }, [internalValue, onChange]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    if (isFirstRender) return;
     setInternalValue(value);
   }, [value]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -34,7 +29,10 @@ export const RadioButtonUncontrolled = ({
         {options.map((option, idx) => (
           <S.OptionTouchable
             key={option.value}
-            onPress={() => setInternalValue(option.value)}
+            onPress={() => {
+              setInternalValue(option.value);
+              if (typeof onChange === 'function') onChange(option.value);
+            }}
           >
             <S.OptionContainer applySpaceBottom={idx < options.length - 1}>
               <Icon

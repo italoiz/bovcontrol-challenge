@@ -1,7 +1,12 @@
+type ChecklistDetail = {
+  checklistId: number;
+  synced?: boolean;
+};
+
 export type RootStackParamList = {
   Home: undefined;
-  ChecklistDetail: { checklistId: string };
-  NewChecklist: undefined;
+  ChecklistDetail: ChecklistDetail;
+  NewChecklist: ChecklistDetail | undefined;
 };
 
 declare global {

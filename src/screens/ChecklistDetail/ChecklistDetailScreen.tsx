@@ -1,10 +1,11 @@
-import { RouteProp, useRoute } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { format } from 'date-fns';
 import React from 'react';
 import styled from 'styled-components/native';
 
 import { Box, PageWrapper } from '@/components';
 import { useChecklistDetail } from '@/hooks';
+import { RootStackParamList } from '@/navigation';
 
 import { CellField } from './CellField';
 import { PageHeader } from './PageHeader';
@@ -18,29 +19,35 @@ const Container = styled.ScrollView`
 
 export const ChecklistDetailScreen = () => {
   const route = useRoute<RouteProp<RootStackParamList, 'ChecklistDetail'>>();
-  const { checklist, loading } = useChecklistDetail(route.params.checklistId);
+  const navigation = useNavigation();
+  const { checklist, loading } = useChecklistDetail(
+    String(route.params.checklistId),
+    route.params.synced,
+  );
   const {
     farmer,
-    to,
-    from,
-    amount_of_milk_produced,
-    number_of_cows_head,
+    supervisor,
+    farm_city,
+    farm_name,
+    milk_produced,
+    cows_head,
     type,
     had_supervision,
     created_at,
     updated_at,
   } = checklist || {};
-  const { name: farm_name, city: farm_city } = farmer || {};
-  const { name: farmer_name } = to || {};
-  const { name: supervisor_name } = from || {};
   return (
     <Container showsVerticalScrollIndicator={false}>
       <PageWrapper>
-        <PageHeader />
+        <PageHeader
+          onEditPress={() => {
+            navigation.navigate('NewChecklist', route.params);
+          }}
+        />
         <S.SectionTitle>Dados do fazendeiro</S.SectionTitle>
 
         <CellField {...{ loading }} label="Nome do Fazendeiro">
-          {farmer_name}
+          {farmer}
         </CellField>
 
         <Box height={32} />
@@ -61,7 +68,7 @@ export const ChecklistDetailScreen = () => {
           label="Supervisor responsável"
           fillContainer
         >
-          {supervisor_name}
+          {supervisor}
         </CellField>
         <Box height={12} />
         <CellField {...{ loading }} label="Tipo de checklist" fillContainer>
@@ -70,11 +77,11 @@ export const ChecklistDetailScreen = () => {
         <Box height={12} />
         <Box row>
           <CellField {...{ loading }} label="Leite produzido" fillContainer>
-            {amount_of_milk_produced} L
+            {milk_produced} L
           </CellField>
           <Box width={12} />
           <CellField {...{ loading }} label="Cabeças de Gado" fillContainer>
-            {number_of_cows_head}
+            {cows_head}
           </CellField>
         </Box>
         <Box height={12} />
