@@ -4,7 +4,7 @@ This repository belongs to the challenge of an interview requested by [BovContro
 
 ### The Result
 
-You can see the result on the video below and click on it to see the full video or click [here](https://www.youtube.com/watch?v=WaWhjrJtyUQ)
+You can see the result in the video below and click on it to see the full video or click [here](https://www.youtube.com/watch?v=WaWhjrJtyUQ). If you want to test on an Android device, you can download the apk file [here](https://github.com/italoiz/bovcontrol-challenge/blob/main/bovcontrol.apk).
 
 [![Challenge Preview](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjg0ZDk1YzY5ZGYxYTcwZjlmMTVkNjI0NTk1Zjk2YWUwYzAzZTdjNyZjdD1n/PGjvy2k4IgpyPOZ2oL/giphy.gif)](https://www.youtube.com/watch?v=WaWhjrJtyUQ)
 
