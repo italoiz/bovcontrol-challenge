@@ -6,6 +6,8 @@ import { useFontResources } from '@/hooks';
 import { MainNavigation } from '@/navigation';
 import { ThemeProvider } from '@/themes';
 
+import { SyncActivityWarning } from './components/SyncActivityWarning';
+
 const MainContainer = styled(Box)`
   flex: 1;
   background-color: #ffffff;
@@ -21,6 +23,7 @@ export const App = () => {
           <MainNavigation />
         </MainContainer>
         <NetworkActivityAlert />
+        <SyncActivityWarning />
       </ThemeProvider>
     </NavigationContainer>
   );

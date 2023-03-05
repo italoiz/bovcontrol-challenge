@@ -31,13 +31,14 @@ export const fetchChecklists = async (): Promise<Checklist[]> => {
 export const fetchChecklistById = async (
   id: string,
   synced?: boolean,
-): Promise<Checklist> => {
+): Promise<Checklist | null> => {
   if (!(await isNetworkConnected()) || synced === false) {
     return fetchLocalChecklistById(id);
   }
   return api
     .get('/checkList/' + id)
-    .then(response => parseChecklist(response.data));
+    .then(response => parseChecklist(response.data))
+    .catch(() => null);
 };
 
 export const createNewChecklist = async (

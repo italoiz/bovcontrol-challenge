@@ -13,7 +13,7 @@ type Location = {
 };
 
 export type ChecklistAPIResponse = {
-  _id: number;
+  id: number;
   type: string;
   amount_of_milk_produced: number;
   farmer: Farmer;

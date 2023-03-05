@@ -57,3 +57,15 @@ export const updateChecklist = async (
     console.log(err);
   }
 };
+
+export const syncRecordById = async (id: string): Promise<void> => {
+  const realm = await getRealm();
+  try {
+    realm.write(() => {
+      const checklist = realm.objectForPrimaryKey('Checklist', String(id));
+      if (checklist) Object.assign(checklist, { synced: true });
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
